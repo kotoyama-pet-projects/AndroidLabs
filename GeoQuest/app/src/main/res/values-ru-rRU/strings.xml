@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">GeoQuest</string>
+    <string name="true_button">Правда</string>
+    <string name="false_button">Неправда</string>
+    <string name="next_button">Следующий</string>
+    <string name="back_button">Предыдущий</string>
+    <string name="correct_toast">Верно!</string>
+    <string name="incorrect_toast">Неверно!</string>
+
+    <string name="question_oceans">Тихий океан больше Атлантического океана.</string>
+    <string name="question_mideast">Суэцкий канал соединяет Красное море и Индийский океан.</string>
+    <string name="question_africa">Источник реки Нил находится в Египте.</string>
+    <string name="question_america">Амазонка - самая длинная река в США.</string>
+    <string name="question_asia">Байкал является самым старым и самым глубоким пресноводным озером в мире.</string>
+
+    <string name="answer_button">Показать ответ</string>
+    <string name="warning_text">Вы уверены, что хотите это сделать?</string>
+    <string name="ok_button">ОК</string>
+    <string name="true_toast">Правда</string>
+    <string name="false_toast">Неправда</string>
+    <string name="refusing_toast">Лимит попыток исчерпан</string>
+
+    <string name="save_button">Сохранить</string>
+    <string name="load_button">Загрузить</string>
+    <string name="name">Имя игрока: </string>
+    <string name="save_toast">Текст сохранен</string>
+    <string name="load_toast">Текст загружен</string>
+</resources>

@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">GeoQuest</string>
+    <string name="true_button">Vrai</string>
+    <string name="false_button">Faux</string>
+    <string name="next_button">Prochain</string>
+    <string name="back_button">Arrière</string>
+    <string name="correct_toast">Correct!</string>
+    <string name="incorrect_toast">Incorrect!</string>
+
+    <string name="question_oceans">L\'océan Pacifique est plus grand que l\'océan Atlantique.</string>
+    <string name="question_mideast">Le canal de Suez relie la mer Rouge et l\'océan Indien.</string>
+    <string name="question_africa">La source du Nil est en Egypte.</string>
+    <string name="question_america">Le fleuve Amazone est le plus long fleuve des Etats-Unis.</string>
+    <string name="question_asia">Le lac Baïkal est le lac d\'eau douce le plus ancien et le plus profond du monde.</string>
+
+    <string name="answer_button">Montrer la réponse</string>
+    <string name="warning_text">Es-tu sûr de vouloir faire ça?</string>
+    <string name="ok_button">OK</string>
+    <string name="true_toast">Vrai</string>
+    <string name="false_toast">Faux</string>
+    <string name="refusing_toast">Indice limite atteint</string>
+
+    <string name="save_button">Sauvegarder</string>
+    <string name="load_button">Charge</string>
+    <string name="name">Nom de joueur: </string>
+    <string name="save_toast">Texte enregistré</string>
+    <string name="load_toast">Texte chargé</string>
+</resources>

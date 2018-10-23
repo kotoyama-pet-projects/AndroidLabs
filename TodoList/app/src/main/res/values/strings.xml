@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">ToDoList</string>
+    <string name="delete">Delete item</string>
+    <string name="newItem">Новая запись</string>
+</resources>
