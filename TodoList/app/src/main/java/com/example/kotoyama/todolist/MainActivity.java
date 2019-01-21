@@ -1,6 +1,9 @@
 package com.example.kotoyama.todolist;
 
+import android.content.ContentValues;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -8,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
@@ -18,8 +22,6 @@ public class MainActivity extends AppCompatActivity {
     SimpleCursorAdapter scAdapter;
     EditText addTaskEditText;
     ListView taskListView;
-    DataBase dataBase;
-    Cursor cursor;
 
     private static final int DELETE_ID = 1;
 
@@ -27,37 +29,32 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         addTaskEditText = findViewById(R.id.edit_text);
         taskListView = findViewById(R.id.taskList);
-
-        dataBase = new DataBase(this);
-        dataBase.open();
         showTasks();
-
-        taskListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(MainActivity.this, "ID: " + (position + 1), Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     public void addTask(View v) {
         String itemText = addTaskEditText.getText().toString();
-        dataBase.insertEntry(itemText);
+        ContentValues values = new ContentValues();
+        values.put(ToDoContentProvider.KEY_TASK, itemText);
         addTaskEditText.setText("");
+        Uri uri = ToDoContentProvider.CONTENT_URI;
+        getApplicationContext().getContentResolver().insert(uri, values);
         showTasks();
-        cursor.requery();
     }
 
     public void showTasks() {
-        cursor = dataBase.getAllEntries();
-        startManagingCursor(cursor);
-        String[] from = new String[] { DataBase.KEY_NAME, DataBase.KEY_ID };
-        int[] to = new int[] { R.id.nameTextView, R.id.numberTextView};
-        scAdapter = new SimpleCursorAdapter(this, R.layout.tasks, cursor, from, to);
-        taskListView = findViewById(R.id.taskList);
+        Uri uri = ToDoContentProvider.CONTENT_URI;
+        Cursor cursor = this.getContentResolver().query(uri,null,null,null,null);
+        scAdapter = new SimpleCursorAdapter(
+                this,
+                R.layout.tasks,
+                cursor,
+                new String[]{ ToDoContentProvider.KEY_TASK, ToDoContentProvider.KEY_ID },
+                new int[] { R.id.nameTextView, R.id.numberTextView},
+                0
+        );
         taskListView.setAdapter(scAdapter);
         registerForContextMenu(taskListView);
     }
@@ -72,20 +69,17 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
+        Uri uri = ToDoContentProvider.CONTENT_URI;
         switch (item.getItemId()) {
             case DELETE_ID:
                 AdapterView.AdapterContextMenuInfo info =
                         (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-                dataBase.removeEntry(info.id);
-                cursor.requery();
+                getContentResolver().delete(uri,
+                        ToDoContentProvider.KEY_ID + "=?",
+                        new String[]{ String.valueOf(info.id) });
+                showTasks();
                 return true;
         }
         return super.onContextItemSelected(item);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        dataBase.close();
     }
 }
